@@ -1,0 +1,45 @@
+eureka:
+  client:
+    serviceUrl:
+       defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://eureka-service:8761/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: application-customer
+          uri: http://localhost:8081/
+#          uri: http://customer-service:8081/
+          predicates:
+            - Path=/api/customers/**
+        - id: application-account
+          uri: http://localhost:8082/
+#          uri: http://account-service:8082/
+          predicates:
+            - Path=/api/accounts/**
+        - id: application-transaction
+          uri: http://localhost:8083/
+#          uri: http://transaction-service:8083/
+          predicates:
+            - Path=/api/transactions/**
+        - id: application-report
+          uri: http://localhost:8084/
+#          uri: http://transaction-service:8083/
+          predicates:
+            - Path=/api/reports/**
+        - id: application-pocket
+          uri: http://localhost:8085/
+#          uri: http://transaction-service:8083/
+          predicates:
+            - Path=/api/pockets/**
+        - id: application-pocket-transaction
+          uri: http://localhost:8086/
+#          uri: http://transaction-service:8083/
+          predicates:
+            - Path=/api/pocket-transactions/**
